@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/*
+  La Raza palette: warm black base, sun-baked sand, warm off-white,
+  one sunset-terracotta accent pulled from the storefront's red sign and awning.
+  Shape system: interactive elements are full pills, cards are 20px, media inside cards 14px.
+*/
+@theme {
+  --color-ink: #0d0b0a;
+  --color-ink-2: #161311;
+  --color-ink-3: #211c18;
+  --color-line: #2f2824;
+  --color-bone: #f1ebe1;
+  --color-sand: #d9c4a1;
+  --color-muted: #ab9f90;
+  --color-accent: #e8623a;
+  --color-accent-soft: #f07a52;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-shoulders), "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-letter: var(--font-pirata), "Old English Text MT", serif;
+
+  --radius-card: 20px;
+  --radius-media: 14px;
+
+  --ease-brush: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(232 98 58 / 0.25);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  /* Pill controls keep their pill focus ring */
+  .pill:focus-visible {
+    border-radius: 9999px;
+  }
+}
+
+@layer components {
+  /* Condensed sign-painter headline voice */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Visible, unmistakable placeholder chip for content the studio still has to provide */
+  .ph {
+    display: inline;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-sand);
+    background: rgb(217 196 161 / 0.08);
+    outline: 1px dashed rgb(217 196 161 / 0.55);
+    outline-offset: 1px;
+    border-radius: 4px;
+    padding: 0 0.35em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Steel roll-up shutter slats */
+  .shutter-slats {
+    background-color: #1a1613;
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        rgb(255 255 255 / 0.05) 0px,
+        rgb(255 255 255 / 0.05) 1px,
+        rgb(0 0 0 / 0) 1px,
+        rgb(0 0 0 / 0) 13px,
+        rgb(0 0 0 / 0.45) 13px,
+        rgb(0 0 0 / 0.45) 16px
+      );
+  }
+}
+
+/* Film grain on a fixed, non-scrolling layer only (no repaint on scroll) */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
